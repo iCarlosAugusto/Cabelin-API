@@ -17,10 +17,22 @@ model Client {
 }
 
 model Partner {
-  id          String   @id @default(uuid())
-  createdAt   DateTime @default(now())
-  email       String   @unique
-  phoneNumber String   @unique
-  name        String
-  password    String
+  id             String   @id @default(uuid())
+  createdAt      DateTime @default(now())
+  email          String   @unique
+  phoneNumber    String   @unique
+  name           String
+  password       String
+  establishemnts Establishment[]
+}
+
+model Establishment {
+  id              String  @id @default(uuid())
+  partnerOwner    Partner @relation(fields: [partnerOwnerId], references: [id])
+  partnerOwnerId  String
+  name            String  @unique
+  description     String?
+  address         String
+  phoneNumber     String
+  imageUrl        String?
 }
