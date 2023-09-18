@@ -24,15 +24,28 @@ model Partner {
   name           String
   password       String
   establishemnts Establishment[]
+  service Service[]
 }
 
 model Establishment {
   id              String  @id @default(uuid())
   partnerOwner    Partner @relation(fields: [partnerOwnerId], references: [id])
+  services        Service[]
   partnerOwnerId  String
   name            String  @unique
   description     String?
   address         String
   phoneNumber     String
   imageUrl        String?
+}
+
+model Service {
+  id              String        @id @default(uuid())
+  establishemntId String
+  establishment   Establishment @relation(fields: [establishemntId], references: [id])
+  partner         Partner[]
+  name            String
+  description     String?
+  price           String
+  duration        String
 }
